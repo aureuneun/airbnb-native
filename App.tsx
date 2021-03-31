@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image } from 'react-native';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import AppLoading from 'expo-app-loading';
+import { Provider } from 'react-redux';
+import { Gate } from './components/Gate';
+import store from './redux/store';
 
 const cacheImages = () => {
   const images = [
@@ -33,9 +36,9 @@ export default function App() {
     return Promise.all([...images, ...fonts]);
   };
   return isReady ? (
-    <View>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
+    <Provider store={store}>
+      <Gate />
+    </Provider>
   ) : (
     <AppLoading
       onError={console.error}
