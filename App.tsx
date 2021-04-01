@@ -16,25 +16,27 @@ const cacheImages = () => {
   ];
   return images.map((image) => {
     if (typeof image === 'string') {
-      return Image.prefetch(image);
+      Image.prefetch(image);
     } else {
-      return Asset.fromModule(image).downloadAsync();
+      Asset.fromModule(image).downloadAsync();
     }
   });
 };
 
 const cacheFonts = () => {
   const fonts = [Ionicons.font];
-  return fonts.map((font) => Font.loadAsync(font));
+  return fonts.map((font) => {
+    Font.loadAsync(font);
+  });
 };
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
   const handleFinish = () => setIsReady(true);
-  const loadAssets = async (): Promise<any> => {
-    const images: Promise<any>[] = cacheImages();
+  const loadAssets = async () => {
+    const images = cacheImages();
     const fonts = cacheFonts();
-    return Promise.all([...images, ...fonts]);
+    await Promise.all([...images, ...fonts]);
   };
   return isReady ? (
     <Provider store={store}>
