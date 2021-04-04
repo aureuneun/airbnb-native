@@ -1,22 +1,26 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, logout } from '../redux/userSlice';
+import Auth from '../navigations/Auth';
+import { logout } from '../redux/userSlice';
 
 export const Gate = () => {
   const { isLoggedIn } = useSelector((state: any) => state.userReducer);
   const dispatch = useDispatch();
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <NavigationContainer>
       {isLoggedIn ? (
-        <TouchableOpacity onPress={() => dispatch(logout(null))}>
-          <Text>Log out</Text>
-        </TouchableOpacity>
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
+          <TouchableOpacity onPress={() => dispatch(logout(null))}>
+            <Text>Log out</Text>
+          </TouchableOpacity>
+        </View>
       ) : (
-        <TouchableOpacity onPress={() => dispatch(login('aksdjflkjsl'))}>
-          <Text>Log in</Text>
-        </TouchableOpacity>
+        <Auth />
       )}
-    </View>
+    </NavigationContainer>
   );
 };
