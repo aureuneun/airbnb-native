@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import Btn from '../../components/Auth/Btn';
 import Input from '../../components/Auth/Input';
 import Keyboard from '../../components/Keyboard';
-import { isEmail } from '../../utils';
+import utils from '../../utils';
 import api from '../../api';
 
 const Container = styled.View`
@@ -33,7 +33,7 @@ export default ({ navigation: { navigate } }: { navigation: any }) => {
       alert('All fields are required.');
       return false;
     }
-    if (!isEmail(email)) {
+    if (!utils.isEmail(email)) {
       alert('Please add a valid email.');
       return false;
     }
