@@ -6,9 +6,13 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
 const Text = styled.Text``;
-export default () => (
-  <Container>
-    <Text>Explore</Text>
-  </Container>
-);
+
+export default ({ rooms }) => {
+  return (
+    <Container>
+      <Text>Explore</Text>
+    </Container>
+  );
+};

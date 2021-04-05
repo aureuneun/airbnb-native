@@ -29,7 +29,7 @@ export const userLogin = (form: any) => async (dispatch: any) => {
     if (token) {
       dispatch(login(token));
     }
-  } catch (e) {
+  } catch (error) {
     alert('Wrong user/password');
   }
 };

@@ -18,4 +18,5 @@ const callApi = async (method: Method, url: string, data?: any) => {
 export default {
   createAccount: (form: any) => callApi('post', 'users/', form),
   login: (form: any) => callApi('post', 'users/login/', form),
+  rooms: (page = 1) => callApi('get', `rooms/?page=${page}`),
 };
