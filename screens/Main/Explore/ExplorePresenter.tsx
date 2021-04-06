@@ -58,7 +58,6 @@ export default ({ rooms, increasePage }) => {
           </FakeBar>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            style={{ width: '100%' }}
             contentContainerStyle={{ paddingTop: 30 }}
           >
             {rooms.map((room) => (

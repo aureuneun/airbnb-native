@@ -1,8 +1,13 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
-import PropTypes from 'prop-types';
-import Swiper from 'react-native-swiper';
 import styled from 'styled-components/native';
+import { Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import Swiper from 'react-native-swiper';
+import { toggleFav } from '../redux/userSlice';
+import utils from '../utils';
+import colors from '../colors';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -10,6 +15,7 @@ const Container = styled.View`
   width: 100%;
   margin-bottom: 25px;
   align-items: flex-start;
+  position: relative;
 `;
 
 const Name = styled.Text`
@@ -57,9 +63,43 @@ const SlideImage = styled.Image`
   height: 100%;
 `;
 
+const FavButton = styled.View`
+  background-color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TOpacity = styled.TouchableOpacity`
+  position: absolute;
+  z-index: 10;
+  right: 10px;
+  top: 10px;
+`;
+
 const RoomCard = ({ id, price, isFav, isSuperHost, name, photos }) => {
+  const dispatch = useDispatch();
   return (
     <Container>
+      <TOpacity onPress={() => dispatch(toggleFav(id))}>
+        <FavButton>
+          <Ionicons
+            size={28}
+            color={isFav ? colors.red : colors.black}
+            name={
+              utils.isAndroid()
+                ? isFav
+                  ? 'md-heart'
+                  : 'md-heart-outline'
+                : isFav
+                ? 'ios-heart'
+                : 'ios-heart-outline'
+            }
+          />
+        </FavButton>
+      </TOpacity>
       <PhotosContainer>
         {photos.length === 0 ? (
           <SlideImage source={require('../assets/roomDefault.jpeg')} />
