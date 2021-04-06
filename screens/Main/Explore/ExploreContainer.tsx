@@ -1,15 +1,23 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setRooms } from '../../../redux/roomSlice';
+import { increasePage, setRooms } from '../../../redux/roomSlice';
 import ExplorePresenter from './ExplorePresenter';
 
 export default () => {
   const {
-    explore: { rooms },
+    explore: { rooms, page },
   } = useSelector((state: any) => state.roomReducer);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setRooms());
+    dispatch(setRooms(1));
   }, []);
-  return <ExplorePresenter rooms={rooms} />;
+  useEffect(() => {
+    dispatch(setRooms(page));
+  }, [page]);
+  return (
+    <ExplorePresenter
+      rooms={rooms}
+      increasePage={() => dispatch(increasePage(null))}
+    />
+  );
 };
