@@ -6,7 +6,8 @@ const callApi = async (
   method: Method,
   url: string,
   data?: any,
-  jwt?: string
+  jwt?: string,
+  params?: object
 ) => {
   const headers = {
     Authorization: `Bearer ${jwt}`,
@@ -17,6 +18,7 @@ const callApi = async (
     headers,
     url,
     data,
+    params,
   });
 };
 
@@ -28,4 +30,5 @@ export default {
   favs: (id, token) => callApi('get', `users/${id}/favs/`, null, token),
   toggleFav: (userId, roomId, token) =>
     callApi('put', `users/${userId}/favs/`, { pk: roomId }, token),
+  search: (form, token) => callApi('get', 'rooms/search/', null, token, form),
 };
