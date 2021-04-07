@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import Explore from '../screens/Main/Explore';
 import Saved from '../screens/Main/Saved';
 import GoogleMap from '../screens/Main/GoogleMap';
@@ -7,12 +8,16 @@ import Profile from '../screens/Main/Profile';
 import colors from '../colors';
 import utils from '../utils';
 import { Ionicons } from '@expo/vector-icons';
+import Room from '../screens/Main/Room';
+import BackBtn from '../components/Auth/BackBtn';
+import { BlurView } from 'expo-blur';
+import { StyleSheet } from 'react-native';
 
-const Main = createBottomTabNavigator();
+const TabsNavigator = createBottomTabNavigator();
 
-export default () => {
+const Tabs = () => {
   return (
-    <Main.Navigator
+    <TabsNavigator.Navigator
       tabBarOptions={{
         activeTintColor: colors.red,
         labelStyle: {
@@ -46,10 +51,42 @@ export default () => {
         },
       })}
     >
-      <Main.Screen name="Explore" component={Explore} />
-      <Main.Screen name="Saved" component={Saved} />
-      <Main.Screen name="Map" component={GoogleMap} />
-      <Main.Screen name="Profile" component={Profile} />
-    </Main.Navigator>
+      <TabsNavigator.Screen name="Explore" component={Explore} />
+      <TabsNavigator.Screen name="Saved" component={Saved} />
+      <TabsNavigator.Screen name="Map" component={GoogleMap} />
+      <TabsNavigator.Screen name="Profile" component={Profile} />
+    </TabsNavigator.Navigator>
   );
 };
+
+const MainNavigator = createStackNavigator();
+
+export default () => (
+  <MainNavigator.Navigator
+    mode="modal"
+    screenOptions={{
+      headerBackTitleVisible: false,
+      headerBackImage: () => <BackBtn />,
+    }}
+  >
+    <MainNavigator.Screen
+      name="Tabs"
+      component={Tabs}
+      options={{ headerShown: false }}
+    />
+    <MainNavigator.Screen
+      name="RoomDetail"
+      component={Room}
+      options={{
+        headerTransparent: true,
+        headerBackground: () => (
+          <BlurView
+            intensity={100}
+            tint="light"
+            style={StyleSheet.absoluteFill}
+          />
+        ),
+      }}
+    />
+  </MainNavigator.Navigator>
+);

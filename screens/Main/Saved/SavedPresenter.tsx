@@ -34,6 +34,7 @@ export default ({ rooms }) => {
               isSuperHost={room.user.superhost}
               name={room.name}
               photos={room.photos}
+              roomObj={room}
             />
           ))
         ) : (

@@ -69,6 +69,7 @@ export default ({ rooms, increasePage }) => {
                 isSuperHost={room.user.superhost}
                 name={room.name}
                 photos={room.photos}
+                roomObj={room}
               />
             ))}
             <TouchableOpacity onPress={increasePage}>
