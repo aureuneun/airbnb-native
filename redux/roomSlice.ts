@@ -9,6 +9,7 @@ const roomSlice = createSlice({
       page: 1,
     },
     favs: [],
+    rooms: [],
   },
   reducers: {
     setExploreRooms: (state, action) => {
@@ -41,6 +42,9 @@ const roomSlice = createSlice({
         }
       }
     },
+    searchRooms: (state, action) => {
+      state.rooms = action.payload;
+    },
   },
 });
 
@@ -49,6 +53,7 @@ export const {
   increasePage,
   setFavs,
   setFav,
+  searchRooms,
 } = roomSlice.actions;
 
 export const setRooms = (page) => async (dispatch, getState) => {
